@@ -6,15 +6,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Survey {
-    private String surveyName;
-    private String description;
-    private String loginCreator;
-    private Map<String, Integer> optionsMap;
+    private final String surveyName;
+    private final String description;
+    private final String loginCreator;
+    private final int maxOptions;
+    private final Map<String, Integer> optionsMap;
 
-    public Survey(String surveyName, String description, String loginCreator, List<String> options){
+    public Survey(String surveyName, String description, String loginCreator, int maxOptions, List<String> options){
         this.surveyName = surveyName;
         this.description = description;
         this.loginCreator = loginCreator;
+        this.maxOptions = maxOptions;
         this.optionsMap = new HashMap<>();
 
         for (String option : options) {
@@ -26,6 +28,7 @@ public class Survey {
         this.surveyName = surveyBuilder.surveyName;
         this.description = surveyBuilder.description;
         this.loginCreator = surveyBuilder.loginCreator;
+        this.maxOptions = surveyBuilder.maxOptions;
         this.optionsMap = new HashMap<>();
 
         for (String option : surveyBuilder.options) {
@@ -37,9 +40,10 @@ public class Survey {
         private String surveyName;
         private String description;
         private String loginCreator;
+        private int    maxOptions;
         private List<String> options = new ArrayList<>();
 
-        private SurveyBuilder() {}
+        public SurveyBuilder() {}
 
         public SurveyBuilder surveyName(String surveyName) {
             this.surveyName = surveyName;
@@ -56,12 +60,30 @@ public class Survey {
             return this;
         }
 
+        public SurveyBuilder maxOptions(int maxOptions) {
+            if (maxOptions <= 0) {
+                throw new IllegalArgumentException("Максимальное количество вариантов должно быть положительным");
+            }
+            this.maxOptions = maxOptions;
+            return this;
+        }
+
         public SurveyBuilder addOption(String option) {
+            if (options.size() > maxOptions) {
+                throw new IllegalArgumentException(
+                        String.format("Превышено максимальное количество вариантов (%d)", maxOptions)
+                );
+            }
             this.options.add(option);
             return this;
         }
 
         public SurveyBuilder options(List<String> options) {
+            if (options.size() > maxOptions) {
+                throw new IllegalArgumentException(
+                        String.format("Превышено максимальное количество вариантов (%d)", maxOptions)
+                );
+            }
             this.options = new ArrayList<>(options);
             return this;
         }
@@ -79,4 +101,36 @@ public class Survey {
             return new Survey(this);
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder optionsStr = new StringBuilder("{");
+        boolean first = true;
+
+        for (Map.Entry<String, Integer> entry : optionsMap.entrySet()) {
+            if (!first) {
+                optionsStr.append(", ");
+            }
+            optionsStr.append(entry.getKey())
+                    .append(": ")
+                    .append(entry.getValue());
+            first = false;
+        }
+        optionsStr.append("}");
+
+        return "Survey{" +
+                "surveyName='" + surveyName + "\',\n" +
+                "description='" + description + "\',\n" +
+                "loginCreator='" + loginCreator + "\',\n" +
+                "options=" + optionsStr.toString() +
+                '}';
+    }
+
+    public void addVote(String option) {
+        if (!optionsMap.containsKey(option)) {
+            throw new IllegalArgumentException("Варианта ответа " + option + "не существует");
+        }
+        optionsMap.put(option, optionsMap.get(option) + 1);
+    }
+
 }
