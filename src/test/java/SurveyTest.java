@@ -25,7 +25,6 @@ public class SurveyTest {
                 .build();
     }
 
-
     @Test
     @DisplayName("Test vote creation without name should throw exception")
     void testCreateVoteWithoutName() {

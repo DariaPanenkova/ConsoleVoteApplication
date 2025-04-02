@@ -133,4 +133,7 @@ public class Survey {
         optionsMap.put(option, optionsMap.get(option) + 1);
     }
 
+    public String getSurveyName(){
+        return this.surveyName;
+    }
 }
