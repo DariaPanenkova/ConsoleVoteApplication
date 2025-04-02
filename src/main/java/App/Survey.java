@@ -136,4 +136,10 @@ public class Survey {
     public String getSurveyName(){
         return this.surveyName;
     }
+
+    public boolean isCreatedBy(String userLogin) {
+        return loginCreator.equals(userLogin);
+    }
+
+
 }

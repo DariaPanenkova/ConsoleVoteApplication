@@ -45,4 +45,22 @@ public class TopicTest {
         topic.addSurvey(survey2);
         assertEquals(2, topic.getSurveysCount());
     }
+
+    @Test
+    @DisplayName("Test removing vote by creator")
+    void testRemoveVoteByCreator() {
+        topic.addSurvey(survey1);
+        topic.addSurvey(survey2);
+        topic.deleteSurvey("Опрос 2", "admin");
+        assertEquals(1, topic.getSurveysCount());
+    }
+
+    @Test
+    @DisplayName("Test removing vote by non-creator")
+    void testRemoveVoteByNonCreator() {
+        topic.addSurvey(survey1);
+        topic.addSurvey(survey2);
+        assertThrows(SecurityException.class, () -> topic.deleteSurvey("Опрос 2", "user"));
+        assertEquals(2, topic.getSurveysCount());
+    }
 }

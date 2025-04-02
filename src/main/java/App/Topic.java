@@ -37,6 +37,14 @@ public class Topic {
         surveyMap.put(survey.getSurveyName(), survey);
     }
 
+    public void deleteSurvey(String surveyName, String userLogin) {
+        Survey survey = getSurvey(surveyName);
+        if (!survey.isCreatedBy(userLogin)) {
+            throw new SecurityException("Только создатель может удалить голосование");
+        }
+        surveyMap.remove(surveyName);
+    }
+
     @Override
     public String toString() {
         StringBuilder surveysStr = new StringBuilder("{");
@@ -64,5 +72,13 @@ public class Topic {
 
     public int getSurveysCount(){
         return this.surveyMap.size();
+    }
+
+    public Survey getSurvey(String surveyName) {
+        Survey survey = surveyMap.get(surveyName);
+        if (survey == null) {
+            throw new IllegalArgumentException("Опрос " + surveyName + " не найден ");
+        }
+        return survey;
     }
 }
