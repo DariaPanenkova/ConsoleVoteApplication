@@ -51,9 +51,11 @@
         "maxOptions": 2,
         "optionsMap": {
           "v1": 0,
-          "v2": 0
+          "v2": 1
         },
-        "votedUsersSet": []
+        "votedUsersSet": [
+          "User12"
+        ]
       },
       "Vote2": {
         "voteName": "Vote2",
@@ -62,11 +64,14 @@
         "maxOptions": 4,
         "optionsMap": {
           "o1": 0,
-          "o2": 0,
-          "o3": 0,
+          "o2": 1,
+          "o3": 1,
           "o4": 0
         },
-        "votedUsersSet": []
+        "votedUsersSet": [
+          "User5",
+          "User12"
+        ]
       },
       "Vote3": {
         "voteName": "Vote3",
@@ -75,12 +80,27 @@
         "maxOptions": 2,
         "optionsMap": {
           "v1": 2,
-          "v2": 1
+          "v2": 2
         },
         "votedUsersSet": [
           "User1",
           "User2",
-          "User3"
+          "User3",
+          "User4"
+        ]
+      },
+      "Vote777": {
+        "voteName": "Vote777",
+        "description": "happy vote",
+        "loginCreator": "User12",
+        "maxOptions": 3,
+        "optionsMap": {
+          "13": 0,
+          "7": 1,
+          "8": 0
+        },
+        "votedUsersSet": [
+          "User12"
         ]
       }
     }

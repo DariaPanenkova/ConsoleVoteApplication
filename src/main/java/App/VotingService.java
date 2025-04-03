@@ -26,17 +26,19 @@ public class VotingService {
         loadData();
         System.out.println("Система голосований запущена. Введите 'help' для списка команд.");
 
-        while (true) {
-            System.out.print("---> ");
-            String input = scanner.nextLine().trim();
-            if (input.isEmpty()) continue;
+        try (scanner) {
+            while (true) {
+                System.out.print("---> ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) continue;
 
-            try {
-                if (process(input)) {
-                    break; // Выход если команда exit
+                try {
+                    if (process(input)) {
+                        break; // Выход если команда exit
+                    }
+                } catch (Exception e) {
+                    System.out.println("Ошибка: " + e.getMessage());
                 }
-            } catch (Exception e) {
-                System.out.println("Ошибка: " + e.getMessage());
             }
         }
     }
@@ -131,6 +133,7 @@ public class VotingService {
 
         topic.addVote(vote);
         System.out.println("Опрос " + voteName + " добавлен");
+
     }
 
     private void login(String args) {
