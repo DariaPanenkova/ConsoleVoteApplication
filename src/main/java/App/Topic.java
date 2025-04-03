@@ -24,7 +24,7 @@ public class Topic {
 
         public Topic build() {
             if (topicName == null || topicName.isBlank()) {
-                throw new IllegalStateException("Название темы обязательно");
+                throw new IllegalStateException("Название раздела обязательно");
             }
             return new Topic(this);
         }
