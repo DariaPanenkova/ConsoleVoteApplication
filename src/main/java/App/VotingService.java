@@ -24,7 +24,7 @@ public class VotingService {
 
     public void start() {
         loadData();
-        System.out.println("Система голосований запущена. Введите 'help' для списка команд.");
+        System.out.println("Приложение для голосований запущено. Введите 'help' для списка команд.");
 
         try (scanner) {
             while (true) {
@@ -185,7 +185,7 @@ public class VotingService {
     private void listVotesInTopic(String topicName) {
         Topic topic = topics.get(topicName);
         if (topic == null) {
-            throw new IllegalArgumentException("Тема не найдена");
+            throw new IllegalArgumentException("Раздел не найден");
         }
 
         topic.getSetVotesName().forEach(System.out::println);
@@ -194,7 +194,7 @@ public class VotingService {
     private void viewVoteResult(String topicName, String voteName) {
         Topic topic = topics.get(topicName);
         if (topic == null) {
-            throw new IllegalArgumentException("Тема не найдена");
+            throw new IllegalArgumentException("Раздел не найден");
         }
 
         Vote vote = topic.getVote(voteName);

@@ -7,8 +7,8 @@ public class Vote {
     private final String description;
     private final String loginCreator;
     private final int maxOptions;
-    private Map<String, Integer> optionsMap;
-    private Set<String> votedUsersSet;
+    private final Map<String, Integer> optionsMap;
+    private final Set<String> votedUsersSet;
 
     public Vote(String voteName, String description, String loginCreator, int maxOptions, List<String> options){
         this.voteName = voteName;
@@ -153,13 +153,4 @@ public class Vote {
     public boolean isCreatedBy(String userLogin) {
         return loginCreator.equals(userLogin);
     }
-
-//    public void addOption(String option) {
-//        if (optionsMap.size() > maxOptions) {
-//            throw new IllegalArgumentException(
-//                    String.format("Превышено максимальное количество вариантов (%d)", maxOptions)
-//            );
-//        }
-//        this.optionsMap.put(option, 0);
-//    }
 }

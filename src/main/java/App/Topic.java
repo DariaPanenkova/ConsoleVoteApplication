@@ -31,9 +31,9 @@ public class Topic {
     }
 
     public void addVote(Vote vote) {
-        Objects.requireNonNull(vote, "Опроса не существует");
+        Objects.requireNonNull(vote, "Голосования не существует");
         if (voteMap.containsKey(vote.getVoteName())) {
-            throw new IllegalArgumentException("Опрос с таким именем уже существует");
+            throw new IllegalArgumentException("Голосование с таким именем уже существует");
         }
         voteMap.put(vote.getVoteName(), vote);
     }
