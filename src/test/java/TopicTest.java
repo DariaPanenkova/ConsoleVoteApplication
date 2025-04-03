@@ -6,21 +6,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TopicTest {
     private Topic topic;
-    private Survey survey1;
-    private Survey survey2;
+    private Vote vote1;
+    private Vote vote2;
 
     @BeforeEach
     void setUp() {
         topic = new Topic.TopicBuilder().topicName("Раздел 1").build();
-        survey1 = new Survey.SurveyBuilder()
-                .surveyName("Опрос 1")
+        vote1 = new Vote.VoteBuilder()
+                .voteName("Опрос 1")
                 .loginCreator("admin")
                 .maxOptions(2)
                 .addOption("Вариант 1")
                 .addOption("Вариант 2")
                 .build();
-        survey2 = new Survey.SurveyBuilder()
-                .surveyName("Опрос 2")
+        vote2 = new Vote.VoteBuilder()
+                .voteName("Опрос 2")
                 .loginCreator("admin")
                 .maxOptions(2)
                 .addOption("Вариант 1")
@@ -33,34 +33,34 @@ public class TopicTest {
     void testTopicCreation() {
         assertNotNull(topic);
         assertEquals("Раздел 1", topic.getTopicName());
-        assertEquals(0, topic.getSurveysCount());
+        assertEquals(0, topic.getVotesCount());
     }
 
     @Test
-    @DisplayName("Test adding surveys")
+    @DisplayName("Test adding votes")
     void testAddVote() {
-        topic.addSurvey(survey1);
-        assertEquals(1, topic.getSurveysCount());
+        topic.addVote(vote1);
+        assertEquals(1, topic.getVotesCount());
 
-        topic.addSurvey(survey2);
-        assertEquals(2, topic.getSurveysCount());
+        topic.addVote(vote2);
+        assertEquals(2, topic.getVotesCount());
     }
 
     @Test
     @DisplayName("Test removing vote by creator")
     void testRemoveVoteByCreator() {
-        topic.addSurvey(survey1);
-        topic.addSurvey(survey2);
-        topic.deleteSurvey("Опрос 2", "admin");
-        assertEquals(1, topic.getSurveysCount());
+        topic.addVote(vote1);
+        topic.addVote(vote2);
+        topic.deleteVote("Опрос 2", "admin");
+        assertEquals(1, topic.getVotesCount());
     }
 
     @Test
     @DisplayName("Test removing vote by non-creator")
     void testRemoveVoteByNonCreator() {
-        topic.addSurvey(survey1);
-        topic.addSurvey(survey2);
-        assertThrows(SecurityException.class, () -> topic.deleteSurvey("Опрос 2", "user"));
-        assertEquals(2, topic.getSurveysCount());
+        topic.addVote(vote1);
+        topic.addVote(vote2);
+        assertThrows(SecurityException.class, () -> topic.deleteVote("Опрос 2", "user"));
+        assertEquals(2, topic.getVotesCount());
     }
 }

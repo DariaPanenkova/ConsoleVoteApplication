@@ -1,0 +1,88 @@
+{
+  "Topic2": {
+    "topicName": "Topic2",
+    "voteMap": {
+      "Vote3": {
+        "voteName": "Vote3",
+        "description": "vote 3",
+        "loginCreator": "User1",
+        "maxOptions": 3,
+        "optionsMap": {
+          "v1": 0,
+          "v2": 0,
+          "v3": 0
+        },
+        "votedUsersSet": []
+      },
+      "Vote4": {
+        "voteName": "Vote4",
+        "description": "vote 4",
+        "loginCreator": "User1",
+        "maxOptions": 5,
+        "optionsMap": {
+          "f": 0,
+          "f1": 0,
+          "f2": 0,
+          "f3": 0,
+          "f4": 0
+        },
+        "votedUsersSet": []
+      },
+      "Vote33": {
+        "voteName": "Vote33",
+        "description": "33 cow",
+        "loginCreator": "User1",
+        "maxOptions": 2,
+        "optionsMap": {
+          "No": 0,
+          "Yes": 0
+        },
+        "votedUsersSet": []
+      }
+    }
+  },
+  "Topic1": {
+    "topicName": "Topic1",
+    "voteMap": {
+      "Vote1": {
+        "voteName": "Vote1",
+        "description": "vote 1",
+        "loginCreator": "User1",
+        "maxOptions": 2,
+        "optionsMap": {
+          "v1": 0,
+          "v2": 0
+        },
+        "votedUsersSet": []
+      },
+      "Vote2": {
+        "voteName": "Vote2",
+        "description": "vote 2",
+        "loginCreator": "User1",
+        "maxOptions": 4,
+        "optionsMap": {
+          "o1": 0,
+          "o2": 0,
+          "o3": 0,
+          "o4": 0
+        },
+        "votedUsersSet": []
+      },
+      "Vote3": {
+        "voteName": "Vote3",
+        "description": "vote 3",
+        "loginCreator": "User1",
+        "maxOptions": 2,
+        "optionsMap": {
+          "v1": 2,
+          "v2": 1
+        },
+        "votedUsersSet": [
+          "User1",
+          "User2",
+          "User3"
+        ]
+      }
+    }
+  }
+}

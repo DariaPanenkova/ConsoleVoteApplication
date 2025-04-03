@@ -3,14 +3,15 @@ package App;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Topic {
     private final String topicName;
-    private final Map<String, Survey> surveyMap;
+    private final Map<String, Vote> voteMap;
 
     private Topic(TopicBuilder builder) {
         this.topicName = builder.topicName;
-        this.surveyMap = new HashMap<>();
+        this.voteMap = new HashMap<>();
     }
 
     public static class TopicBuilder {
@@ -29,56 +30,69 @@ public class Topic {
         }
     }
 
-    public void addSurvey(Survey survey) {
-        Objects.requireNonNull(survey, "Опроса не существует");
-        if (surveyMap.containsKey(survey.getSurveyName())) {
+    public void addVote(Vote vote) {
+        Objects.requireNonNull(vote, "Опроса не существует");
+        if (voteMap.containsKey(vote.getVoteName())) {
             throw new IllegalArgumentException("Опрос с таким именем уже существует");
         }
-        surveyMap.put(survey.getSurveyName(), survey);
+        voteMap.put(vote.getVoteName(), vote);
     }
 
-    public void deleteSurvey(String surveyName, String userLogin) {
-        Survey survey = getSurvey(surveyName);
-        if (!survey.isCreatedBy(userLogin)) {
+    public void deleteVote(String voteName, String userLogin) {
+        Vote vote = getVote(voteName);
+        if (!vote.isCreatedBy(userLogin)) {
             throw new SecurityException("Только создатель может удалить голосование");
         }
-        surveyMap.remove(surveyName);
+        voteMap.remove(voteName);
     }
 
     @Override
     public String toString() {
-        StringBuilder surveysStr = new StringBuilder("{");
+        StringBuilder votesStr = new StringBuilder("{");
         boolean first = true;
 
-        for (Map.Entry<String, Survey> entry : surveyMap.entrySet()) {
+        for (Map.Entry<String, Vote> entry : voteMap.entrySet()) {
             if (!first) {
-                surveysStr.append(", ");
+                votesStr.append(", ");
             }
-            surveysStr.append(entry.getKey());
+            votesStr.append(entry.getKey());
             first = false;
         }
-        surveysStr.append("}");
+        votesStr.append("}");
 
         return "Topic{" +
                 "topicName= '" + topicName + '\'' +
-                ", surveysCount= " + surveyMap.size() +
-                ", surveys= " + surveysStr +
+                ", votesCount= " + voteMap.size() +
+                ", votes= " + votesStr +
                 '}';
     }
 
-    public String getTopicName(){
+    public String getTopicName() {
         return this.topicName;
     }
 
-    public int getSurveysCount(){
-        return this.surveyMap.size();
+    public int getVotesCount() {
+        return this.voteMap.size();
     }
 
-    public Survey getSurvey(String surveyName) {
-        Survey survey = surveyMap.get(surveyName);
-        if (survey == null) {
-            throw new IllegalArgumentException("Опрос " + surveyName + " не найден ");
+    public Set<String> getSetVotesName() {
+        return this.voteMap.keySet();
+    }
+
+    public Vote getVote(String voteName) {
+        Vote vote = voteMap.get(voteName);
+        if (vote == null) {
+            throw new IllegalArgumentException("Голосование " + voteName + " не найдено ");
         }
-        return survey;
+        return vote;
+    }
+
+    public boolean hasVote(String voteName) {
+        Vote vote = voteMap.get(voteName);
+        if (vote == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
