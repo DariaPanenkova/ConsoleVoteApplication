@@ -1,4 +1,8 @@
 {
+  "Topic3": {
+    "topicName": "Topic3",
+    "voteMap": {}
+  },
   "Topic2": {
     "topicName": "Topic2",
     "voteMap": {
@@ -6,36 +10,23 @@
         "voteName": "Vote3",
         "description": "vote 3",
         "loginCreator": "User1",
-        "maxOptions": 3,
+        "maxOptions": 4,
         "optionsMap": {
           "v1": 0,
           "v2": 0,
-          "v3": 0
+          "v3": 0,
+          "v4": 0
         },
         "votedUsersSet": []
       },
-      "Vote4": {
-        "voteName": "Vote4",
-        "description": "vote 4",
-        "loginCreator": "User1",
-        "maxOptions": 5,
-        "optionsMap": {
-          "f": 0,
-          "f1": 0,
-          "f2": 0,
-          "f3": 0,
-          "f4": 0
-        },
-        "votedUsersSet": []
-      },
-      "Vote33": {
-        "voteName": "Vote33",
-        "description": "33 cow",
+      "Vote13": {
+        "voteName": "Vote13",
+        "description": "vojsldnf",
         "loginCreator": "User1",
         "maxOptions": 2,
         "optionsMap": {
-          "No": 0,
-          "Yes": 0
+          "d4": 0,
+          "d2": 0
         },
         "votedUsersSet": []
       }
@@ -51,57 +42,21 @@
         "maxOptions": 2,
         "optionsMap": {
           "v1": 0,
-          "v2": 1
+          "v2": 0
         },
-        "votedUsersSet": [
-          "User12"
-        ]
+        "votedUsersSet": []
       },
       "Vote2": {
         "voteName": "Vote2",
         "description": "vote 2",
         "loginCreator": "User1",
-        "maxOptions": 4,
-        "optionsMap": {
-          "o1": 0,
-          "o2": 1,
-          "o3": 1,
-          "o4": 0
-        },
-        "votedUsersSet": [
-          "User5",
-          "User12"
-        ]
-      },
-      "Vote3": {
-        "voteName": "Vote3",
-        "description": "vote 3",
-        "loginCreator": "User1",
-        "maxOptions": 2,
-        "optionsMap": {
-          "v1": 2,
-          "v2": 2
-        },
-        "votedUsersSet": [
-          "User1",
-          "User2",
-          "User3",
-          "User4"
-        ]
-      },
-      "Vote777": {
-        "voteName": "Vote777",
-        "description": "happy vote",
-        "loginCreator": "User12",
         "maxOptions": 3,
         "optionsMap": {
-          "13": 0,
-          "7": 1,
-          "8": 0
+          "o1": 0,
+          "o2": 0,
+          "o3": 0
         },
-        "votedUsersSet": [
-          "User12"
-        ]
+        "votedUsersSet": []
       }
     }
   }

@@ -82,7 +82,7 @@ public class Topic {
     public Vote getVote(String voteName) {
         Vote vote = voteMap.get(voteName);
         if (vote == null) {
-            throw new IllegalArgumentException("Голосование " + voteName + " не найдено ");
+            throw new IllegalArgumentException("Голосование " + voteName + " не найдено");
         }
         return vote;
     }
