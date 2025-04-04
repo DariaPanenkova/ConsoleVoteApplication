@@ -1,14 +1,23 @@
   Консольный вариант приложения для создания голосования в разделах 
 
   login -u=username - Войти под именем
+  
   create topic -n=name - Создать раздел
+  
   create vote -t=topic - Создать голосование
+  
   view - Список разделов
+  
   view -t=topic - Список голосований в разделе
+  
   view -t=topic -v=vote - Просмотр голосования
+  
   vote -t=topic -v=vote - Проголосовать
+  
   delete -t=topic -v=vote - Удалить голосование
+  
   save - Сохранить данные
+  
   exit - Выход
 
 
