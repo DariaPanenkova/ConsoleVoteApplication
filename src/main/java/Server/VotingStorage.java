@@ -134,11 +134,8 @@ public class VotingStorage {
     }
     public String handleCommand(String commandStr) {
         try {
-
-            System.out.println(commandStr);
             String[] parts = commandStr.split("\\|");
             String cmd = parts[0];
-            System.out.println(cmd);
             String[] args = Arrays.copyOfRange(parts, 1, parts.length);
 
             switch (cmd) {
