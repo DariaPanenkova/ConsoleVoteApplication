@@ -12,6 +12,9 @@ import java.util.Scanner;
 
 public class ClientMain {
     private final Scanner scanner = new Scanner(System.in);
+    public Channel channel;
+    public  final ClientHandler clientHandler = new ClientHandler();
+
     public static void main(String[] args) throws InterruptedException {
         new ClientMain().start();
     }
@@ -28,24 +31,25 @@ public class ClientMain {
                             ch.pipeline()
                                     .addLast(new StringDecoder())
                                     .addLast(new StringEncoder())
-                                    .addLast(new ClientHandler());
+                                    .addLast(clientHandler);
                         }
                     });
 
-            Channel channel = b.connect("localhost", 11111).sync().channel();
-            //TODO:: Закрыть сканер
-            while (true) {
-                String input = scanner.nextLine().trim();
-                if (input.isEmpty()) continue;
+            channel = b.connect("localhost", 11111).sync().channel();
+            try (scanner) {
+                while (true) {
+                    String input = scanner.nextLine().trim();
+                    if (input.isEmpty()) continue;
 
-                String command = buildCommand(input);
-                if (command == null) {
-                    System.out.println("Invalid command");
-                    continue;
+                    String command = buildCommand(input);
+                    if (command == null) {
+                        System.out.println("Invalid command");
+                        continue;
+                    }
+
+                    channel.writeAndFlush(command);
+                    if (input.equalsIgnoreCase("exit")) break;
                 }
-
-                channel.writeAndFlush(command);
-                if (input.equalsIgnoreCase("exit")) break;
             }
         } finally {
             group.shutdownGracefully();
@@ -136,6 +140,40 @@ public class ClientMain {
         }
     }
 
+    private String vote(String args) {
+        if (args.contains("-t=")
+            && args.contains("-v=")) {
+            String request = view(args);
+            channel.writeAndFlush(request);
+
+            try {
+                String response = clientHandler.waitForResponse();
+
+                if (response.contains("OK|")) {
+                    String option = "";
+
+                    while (option.isEmpty()) {
+                        System.out.print("Введите выбранный вариант ответа:");
+                        option = scanner.nextLine();
+                    }
+                    String argsStr = args.substring(3);
+                    String[] argsParts = argsStr.split(" -v=");
+                    String resultRequst = "vote|" + argsParts[0] + "|" + argsParts[1] + "|" + option;
+
+                    return resultRequst;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Используйте: vote -t=<topic> -v=<vote>");
+            return null;
+        }
+
+        return null;
+    }
+
     private  String buildCommand(String input) {
         String[] parts = input.split(" ", 2);
         String command = parts[0];
@@ -149,8 +187,7 @@ public class ClientMain {
             case "create":
                 return create(args);
             case "vote":
-                //TODO: перенести реализацию
-                return null;
+                return vote(args);
             case "delete":
                 //TODO: перенести реализацию
                 return null;

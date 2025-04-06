@@ -115,15 +115,17 @@ public class VotingStorage {
     }
 
     private String createVote(String[] args) {
-        // Формат: create_vote|topic|user|voteName|description|option1|option2|...
+        checkIsLogin();
+
+        //createVote|topicName|voteName|description|optionCount|option1|option2|...
         Topic topic = topics.get(args[0]);
         if (topic == null) return "ERROR|Topic not found";
 
         Vote.VoteBuilder builder = new Vote.VoteBuilder()
-                .voteName(args[2])
-                .description(args[3])
-                .loginCreator(args[1])
-                .maxOptions(args.length - 4);
+                .voteName(args[1])
+                .description(args[2])
+                .loginCreator(currentUser)
+                .maxOptions(Integer.parseInt(args[3]));
 
         for (int i = 4; i < args.length; i++) {
             builder.addOption(args[i]);
@@ -166,12 +168,13 @@ public class VotingStorage {
     }
 
     private String vote(String[] args) {
-        // Формат: vote|topic|voteName|option|user
+        checkIsLogin();
+        // Формат: vote|topicName|voteName|option
         Topic topic = topics.get(args[0]);
         if (topic == null) return "ERROR|Topic not found";
 
         Vote vote = topic.getVote(args[1]);
-        vote.addVote(args[2], args[3]);
+        vote.addVote(args[2], currentUser);
         return "OK|Vote accepted";
     }
 
